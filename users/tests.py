@@ -153,4 +153,3 @@ class BasicUserPermissionsTestCase(APITestCase):
         )
 
         self.assertTrue(self.test_user.has_perms(expected_perms, self.test_user))
-
