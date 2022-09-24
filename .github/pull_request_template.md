@@ -1,7 +1,7 @@
 *What does this PR do?*
 
-*Jira ticket number?*
-[ISPGBSS-](https://jiraent.cms.gov/browse/ISPGBSS-)
+*Github Project ticket number?*
+[Github ticket #](https://github.com/Tom-Camp/tom.camp_api/issues/)
 
 *Changes*
 
