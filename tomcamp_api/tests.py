@@ -10,13 +10,8 @@ from users.models import User
 
 class UnauthenticatedAPITestCase(APITestCase):
     def test_unauthenticated_request_returns_401(self):
-        test_cases = ('/api/projects/', '/api/users/')
-
-        for test_case in test_cases:
-            with self.subTest(url=test_case):
-                response = self.client.get(test_case)
-
-                self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        response = self.client.get("/api/users/")
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_expired_token_returns_401(self):
         user, _ = User.objects.get_or_create(username="test-expired", is_superuser=True)
@@ -26,7 +21,7 @@ class UnauthenticatedAPITestCase(APITestCase):
         time.sleep(1)
 
         with self.settings(AUTH_TOKEN_TTL=1 / 60**2):  # 1s
-            response = self.client.get('/api/catalogs/')
+            response = self.client.get("/api/users/")
 
             self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
             # noinspection PyTypeChecker
