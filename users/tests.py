@@ -10,31 +10,6 @@ from users.models import User
 from users.serializers import UserSerializer
 
 
-class GetAllUsersTest(AuthenticatedAPITestCase):
-    @classmethod
-    def setUpTestData(cls):
-        cls.tester = User.objects.create(
-            username="tester",
-            first_name="Testy",
-            last_name="Testerson",
-            email="testing4lyfe@theworldisatest.com",
-        )
-        cls.muggle = User.objects.create(
-            username="muggle",
-            first_name="Boring",
-            last_name="Person",
-            email="normie@lamezers.com",
-        )
-
-    def test_get_all_users(self):
-        response = self.client.get(reverse("user-list"))
-        users = User.objects.all()
-        serializer = UserSerializer(users, many=True)
-        print(response.data)
-        self.assertEqual(response.data, serializer.data)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-
 class GetSingleUserTest(AuthenticatedAPITestCase):
     @classmethod
     def setUpTestData(cls):
@@ -99,10 +74,11 @@ class CreateNewUserTest(APITestCase):
 
 
 class UpdateSingleUserTest(AuthenticatedAPITestCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpTestData(cls):
+        super().setUpTestData()
 
-        self.tester = User.objects.create(
+        cls.tester = User.objects.create(
             username="tester",
             first_name="Testy",
             last_name="Testerson",
